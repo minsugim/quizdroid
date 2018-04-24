@@ -1,3 +1,80 @@
 <resources>
     <string name="app_name">quizdroid</string>
+    <string name="physics">Physics</string>
+    <string name="math">Math</string>
+    <string name="marvel">Marvel Super Heroes</string>
+    <string name="submit">Submit</string>
+
+    <string name="start_quiz">Start Quiz!</string>
+
+    <string name="physics_desc">
+        Physics is a natural science that studies matter
+        and its motion and behavior through space and time
+        and that studies the related entities of energy and force. (Wikipedia)
+    </string>
+
+    <string name="math_desc">
+        Mathematics is the study of such topics as quantity,
+        structure, space, and change. It has no generally accepted
+        definition. Mathematicians seek out patterns and use them to
+        formulate new conjectures. (Wikipedia)
+    </string>
+
+    <string name="marvel_desc">
+        Marvel Super Heroes are heroes in the Marvel universe
+        that have various superpowers and fight against the villains
+        of the universe to preserve their people.
+    </string>
+
+    <string name="math_c1">2</string>
+    <string name="math_c2">6</string>
+    <string name="math_c3">4</string>
+    <string name="math_c4">5</string>
+
+    <string name="math_q1">What\'s 1 + 1?</string>
+    <string name="math_a1">2</string>
+
+    <string name="math_q2">What\'s 2 x 3?</string>
+    <string name="math_a2">6</string>
+
+    <string name="math_q3">What\'s 6 - 2?</string>
+    <string name="math_a3">4</string>
+
+    <string name="math_q4">What\'s 10 / 2</string>
+    <string name="math_a4">5</string>
+
+    <string name="physics_c1">mc^2</string>
+    <string name="physics_c2">ma</string>
+    <string name="physics_c3">Gravity</string>
+    <string name="physics_c4">Air resistance</string>
+
+    <string name="physics_q1">What\'s E?</string>
+    <string name="physics_a1">mc^2</string>
+
+    <string name="physics_q2">What\'s F?</string>
+    <string name="physics_a2">ma</string>
+
+    <string name="physics_q3">What is g?</string>
+    <string name="physics_a3">Gravity</string>
+
+    <string name="physics_q4">Why does a feather fall slower than a bowling ball?</string>
+    <string name="physics_a4">Air resistance</string>
+
+    <string name="marvel_c1">Tony Stark</string>
+    <string name="marvel_c2">T\'Challa</string>
+    <string name="marvel_c3">Steve Rogers</string>
+    <string name="marvel_c4">Hulk</string>
+
+    <string name="marvel_q1">Who\'s a billionaire, playboy, philanthropist and genius?</string>
+    <string name="marvel_a1">Tony Stark</string>
+
+    <string name="marvel_q2">Who is the king of Wakanda?</string>
+    <string name="marvel_a2">T\'Challa</string>
+
+    <string name="marvel_q3">Who is Captain America?</string>
+    <string name="marvel_a3">Steve Rogers</string>
+
+    <string name="marvel_q4">Who is the strongest Avenger?</string>
+    <string name="marvel_a4">Hulk</string>
+
 </resources>
