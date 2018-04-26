@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, subjects)
         listView.adapter = adapter
         listView.setOnItemClickListener({ _, _, position, _ ->
-            val intent = Intent(this, TopicActivity::class.java)
+            val intent = Intent(this, ControllerActivity::class.java)
             intent.putExtra("EXTRA_TEXT", listView.getItemAtPosition(position).toString())
             startActivity(intent)
         })

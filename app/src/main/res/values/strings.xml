@@ -77,4 +77,9 @@
     <string name="marvel_q4">Who is the strongest Avenger?</string>
     <string name="marvel_a4">Hulk</string>
 
+    <string name="your_answer">"Your answer was: "</string>
+    <string name="correct_answer">"The correct answer is: "</string>
+    <string name="score_1">"You have "</string>
+    <string name="score_2">" out of 4 correct"</string>
+
 </resources>

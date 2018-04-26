@@ -1,18 +1,17 @@
 package edu.uw.ischool.minsugim.quizdroid
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 
-class QuizActivity : AppCompatActivity() {
+class fragmentQuiz : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.quiz_template)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val mathQuestions = arrayOf(getString(R.string.math_q1), getString(R.string.math_q2), getString(R.string.math_q3), getString(R.string.math_q4))
         val physicsQuestions = arrayOf(getString(R.string.physics_q1), getString(R.string.physics_q2), getString(R.string.physics_q3), getString(R.string.physics_q4))
         val marvelQuestions = arrayOf(getString(R.string.marvel_q1), getString(R.string.marvel_q2), getString(R.string.marvel_q3), getString(R.string.marvel_q4))
@@ -21,27 +20,20 @@ class QuizActivity : AppCompatActivity() {
         val physicsChoices = arrayOf(getString(R.string.physics_c1), getString(R.string.physics_c2), getString(R.string.physics_c3), getString(R.string.physics_c4))
         val marvelChoices = arrayOf(getString(R.string.marvel_c1), getString(R.string.marvel_c2), getString(R.string.marvel_c3), getString(R.string.marvel_c4))
 
-        var questionView : TextView = findViewById(R.id.question)
-        var questionNum : Int = 0
-        var numCorrect : Int = 0
+        val rootView : View = inflater.inflate(R.layout.fragment_quiz, container, false)
+        var questionView : TextView = rootView.findViewById(R.id.question)
 
-        var topic: String = ""
-        if (savedInstanceState == null) {
-            val extras: Bundle = intent.extras
-            topic = extras.getString("Topic")
-            questionNum = extras.getInt("Question_Number")
-            numCorrect = extras.getInt("Num_Correct")
-        } else {
-            topic = savedInstanceState.getSerializable("Topic").toString()
-            questionNum = savedInstanceState.getInt("Question_Number")
-            numCorrect = savedInstanceState.getInt("Num_Correct")
-        }
+        var fragmentManager : FragmentManager = activity!!.supportFragmentManager
 
-        val group : RadioGroup = findViewById(R.id.choices)
+        var topic = arguments!!.getString("Topic")
+        var questionNum = arguments!!.getInt("Question_Number")
+        var numCorrect = arguments!!.getInt("Num_Correct")
+
+        val group : RadioGroup = rootView.findViewById(R.id.choices)
 
         fun addButtons (choices: Array<String>) {
             for (choice in choices) {
-                val button = RadioButton(this)
+                val button = RadioButton(context)
                 button.text = choice
                 group.addView(button)
             }
@@ -63,15 +55,23 @@ class QuizActivity : AppCompatActivity() {
             }
         }
 
-        val submit : Button = findViewById(R.id.submit)
+        val submit : Button = rootView.findViewById(R.id.submit)
         submit.setOnClickListener{
-                val button: Button = findViewById(group.checkedRadioButtonId)
-                val intent = Intent(this, AnswerActivity::class.java)
-                intent.putExtra("Topic", topic)
-                intent.putExtra("Question_Number", questionNum)
-                intent.putExtra("Answer", button.text.toString())
-                intent.putExtra("Number_Correct", numCorrect)
-                startActivity(intent)
+            val button: Button = rootView.findViewById(group.checkedRadioButtonId)
+            val answer = button.text.toString()
+            Log.i("fragmentQuiz", answer)
+            val ft = fragmentManager.beginTransaction()
+            ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+            val fragment : Fragment = fragmentAnswer()
+            val bundle = Bundle()
+            bundle.putString("Topic", topic)
+            bundle.putInt("Question_Number", questionNum)
+            bundle.putString("Answer", answer)
+            bundle.putInt("Num_Correct", numCorrect)
+            fragment.arguments = bundle
+            ft.replace(R.id.fragment_placeholder, fragment)
+            ft.commit()
         }
+        return rootView
     }
 }
