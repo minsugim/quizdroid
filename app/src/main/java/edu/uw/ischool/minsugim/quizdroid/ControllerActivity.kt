@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v4.app.FragmentManager
 
 class ControllerActivity : AppCompatActivity() {
+
+    var currTopic : Topic? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.quiz_main)
@@ -13,19 +16,17 @@ class ControllerActivity : AppCompatActivity() {
         var fragmentManager : FragmentManager = supportFragmentManager
         var fragment: Fragment? = fragmentTopic()
 
-        val topic: String
+        var topic: Int
 
-        if (savedInstanceState == null) {
-            val extras: Bundle = intent.extras
-            topic = extras.getString("EXTRA_TEXT")
-        } else {
-            topic = savedInstanceState.getSerializable("EXTRA_TEXT").toString()
-        }
+        val extras: Bundle = intent.extras
+        topic = extras.getInt("TopicNumber")
 
         if (null != fragment) {
+            currTopic = QuizApp.instance.getTopics()[0]
             val ft = fragmentManager.beginTransaction()
             val bundle = Bundle()
-            bundle.putString("EXTRA_TEXT", topic)
+            bundle.putString("Topic", currTopic!!.title)
+            bundle.putInt("TopicNumber", topic)
             fragment.arguments = bundle
             ft.replace(R.id.fragment_placeholder, fragment)
             ft.commit()

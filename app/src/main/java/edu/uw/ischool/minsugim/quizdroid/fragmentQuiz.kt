@@ -12,13 +12,6 @@ import android.widget.*
 class fragmentQuiz : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val mathQuestions = arrayOf(getString(R.string.math_q1), getString(R.string.math_q2), getString(R.string.math_q3), getString(R.string.math_q4))
-        val physicsQuestions = arrayOf(getString(R.string.physics_q1), getString(R.string.physics_q2), getString(R.string.physics_q3), getString(R.string.physics_q4))
-        val marvelQuestions = arrayOf(getString(R.string.marvel_q1), getString(R.string.marvel_q2), getString(R.string.marvel_q3), getString(R.string.marvel_q4))
-
-        val mathChoices = arrayOf(getString(R.string.math_c1), getString(R.string.math_c2), getString(R.string.math_c3), getString(R.string.math_c4))
-        val physicsChoices = arrayOf(getString(R.string.physics_c1), getString(R.string.physics_c2), getString(R.string.physics_c3), getString(R.string.physics_c4))
-        val marvelChoices = arrayOf(getString(R.string.marvel_c1), getString(R.string.marvel_c2), getString(R.string.marvel_c3), getString(R.string.marvel_c4))
 
         val rootView : View = inflater.inflate(R.layout.fragment_quiz, container, false)
         var questionView : TextView = rootView.findViewById(R.id.question)
@@ -28,6 +21,7 @@ class fragmentQuiz : Fragment() {
         var topic = arguments!!.getString("Topic")
         var questionNum = arguments!!.getInt("Question_Number")
         var numCorrect = arguments!!.getInt("Num_Correct")
+        val topicNumber = arguments!!.getInt("TopicNumber")
 
         val group : RadioGroup = rootView.findViewById(R.id.choices)
 
@@ -39,35 +33,28 @@ class fragmentQuiz : Fragment() {
             }
         }
 
-        when (topic) {
-            "Physics" -> {
-                addButtons(physicsChoices)
-                questionView.text = physicsQuestions[questionNum]
-            }
-            "Math" -> {
-                addButtons(mathChoices)
-                questionView.text = mathQuestions[questionNum]
+        val quiz = QuizApp.instance.getTopics()[topicNumber]
 
-            }
-            "Marvel Super Heroes" -> {
-                addButtons(marvelChoices)
-                questionView.text = marvelQuestions[questionNum]
-            }
-        }
+        addButtons(quiz!!.questions[questionNum].answers)
+        questionView.text = quiz!!.questions[questionNum].question
+
 
         val submit : Button = rootView.findViewById(R.id.submit)
         submit.setOnClickListener{
-            val button: Button = rootView.findViewById(group.checkedRadioButtonId)
-            val answer = button.text.toString()
-            Log.i("fragmentQuiz", answer)
             val ft = fragmentManager.beginTransaction()
             ft.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
             val fragment : Fragment = fragmentAnswer()
             val bundle = Bundle()
-            bundle.putString("Topic", topic)
+            var answer = group.checkedRadioButtonId
+            Log.i("math", answer.toString())
+            if (answer > 4) {
+                answer = answer % (4 * questionNum)
+            }
             bundle.putInt("Question_Number", questionNum)
-            bundle.putString("Answer", answer)
+            bundle.putInt("Answer", answer)
+            bundle.putString("Topic", topic)
             bundle.putInt("Num_Correct", numCorrect)
+            bundle.putInt("TopicNumber", topicNumber)
             fragment.arguments = bundle
             ft.replace(R.id.fragment_placeholder, fragment)
             ft.commit()
