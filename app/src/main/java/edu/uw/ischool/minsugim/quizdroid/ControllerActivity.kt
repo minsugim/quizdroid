@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager
 
 class ControllerActivity : AppCompatActivity() {
 
-    var currTopic : Topic? = null
+    var currTopic : Topic_One_Desc? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

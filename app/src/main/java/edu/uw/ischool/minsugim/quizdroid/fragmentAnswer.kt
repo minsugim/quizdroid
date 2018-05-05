@@ -18,28 +18,28 @@ class fragmentAnswer : Fragment() {
 
         var questionNum = arguments!!.getInt("Question_Number")
         var score = arguments!!.getInt("Num_Correct")
-        val answer = arguments!!.getInt("Answer") - 1
 
         val topicNumber = arguments!!. getInt("TopicNumber")
         val quiz = QuizApp().getTopics()[topicNumber].questions[questionNum]
-        var correctAnswer : Int = quiz.correctAnswer
+        val answer = arguments!!.getString("Answer")
+
+        var correctAnswer : Int = quiz.answer - 1
 //
         val currScore : TextView = rootView.findViewById(R.id.score)
 //
-        if (answer == correctAnswer) {
+        if (answer == quiz.answers[correctAnswer]) {
             score++
         }
 
-        val yourAnswer = getString(R.string.your_answer) + quiz.answers[answer]
         val actualAnswer = getString(R.string.correct_answer) + quiz.answers[correctAnswer]
-        val yourScore = getString(R.string.score_1) + score + getString(R.string.score_2)
+        val yourScore = getString(R.string.score_1) + score + " out of " + QuizApp().getTopics()[topicNumber].questions.size + " correct"
 
-        rootView.findViewById<TextView>(R.id.given_answer).text = yourAnswer
+        rootView.findViewById<TextView>(R.id.given_answer).text = answer
         rootView.findViewById<TextView>(R.id.correct_answer).text =  actualAnswer
         currScore.text =  yourScore
 
         val nextButton : Button = rootView.findViewById(R.id.next)
-        if (questionNum == 3) {
+        if (questionNum >= QuizApp().getTopics()[topicNumber].questions.size - 1) {
             nextButton.text = "Finish"
             nextButton.setOnClickListener {
                 val intent = Intent(activity, MainActivity::class.java)

@@ -35,8 +35,8 @@ class fragmentQuiz : Fragment() {
 
         val quiz = QuizApp.instance.getTopics()[topicNumber]
 
-        addButtons(quiz!!.questions[questionNum].answers)
-        questionView.text = quiz!!.questions[questionNum].question
+        addButtons(quiz.questions[questionNum].answers)
+        questionView.text = quiz.questions[questionNum].text
 
 
         val submit : Button = rootView.findViewById(R.id.submit)
@@ -46,12 +46,8 @@ class fragmentQuiz : Fragment() {
             val fragment : Fragment = fragmentAnswer()
             val bundle = Bundle()
             var answer = group.checkedRadioButtonId
-            Log.i("math", answer.toString())
-            if (answer > 4) {
-                answer = answer % (4 * questionNum)
-            }
             bundle.putInt("Question_Number", questionNum)
-            bundle.putInt("Answer", answer)
+            bundle.putString("Answer", group.findViewById<RadioButton>(answer).text.toString())
             bundle.putString("Topic", topic)
             bundle.putInt("Num_Correct", numCorrect)
             bundle.putInt("TopicNumber", topicNumber)

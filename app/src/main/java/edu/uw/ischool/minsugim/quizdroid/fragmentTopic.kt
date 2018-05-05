@@ -12,7 +12,7 @@ import android.util.Log
 
 class fragmentTopic : Fragment() {
 
-    private lateinit var quiz : Topic
+    private lateinit var quiz : Topic_One_Desc
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +25,20 @@ class fragmentTopic : Fragment() {
         val rootView : View = inflater.inflate(R.layout.fragment_topic, container, false)
         val headline: TextView = rootView.findViewById(R.id.textView)
         val description: TextView = rootView.findViewById(R.id.textView2)
+        val numQuestions: TextView = rootView.findViewById(R.id.textView3)
         var fragmentManager : FragmentManager = activity!!.supportFragmentManager
 
 
-        headline.text = quiz!!.title
-        description.text = quiz!!.longDesc
+        headline.text = quiz.title
+        description.text = quiz.desc
+        numQuestions.text = quiz.questions.size.toString() + " questions"
 
         val start: Button = rootView.findViewById(R.id.button)
         start.setOnClickListener {
             val fragment : Fragment = fragmentQuiz()
             val ft = fragmentManager.beginTransaction()
             var bundle = Bundle()
-            bundle.putString("Topic", quiz!!.title)
+            bundle.putString("Topic", quiz.title)
             bundle.putInt("TopicNumber", arguments!!.getInt("TopicNumber"))
             bundle.putInt("Question_Number", 0)
             bundle.putInt("Num_Correct", 0)
