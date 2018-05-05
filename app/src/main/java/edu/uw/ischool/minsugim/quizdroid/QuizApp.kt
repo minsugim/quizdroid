@@ -81,22 +81,19 @@ class QuizApp : android.app.Application(), TopicRepository {
         val jsonArray : JSONArray = JSONArray(jsonStr)
         for (subject in 0 until jsonArray.length()) {
             val topic =  jsonArray.getJSONObject(subject)
-            val title = topic.getString("title")
-            val desc = topic.getString("desc")
+            
             val questions = topic.getJSONArray("questions")
             val quizzes = arrayListOf<Quiz>()
             for (questionNum in 0 until questions.length()) {
                 val question = questions.getJSONObject(questionNum)
-                val text = question.getString("text")
-                val answer = question.getInt("answer")
                 val jsonAns = question.getJSONArray("answers")
                 val answers = Array<String>(jsonAns.length()) { "answers" }
                 for (choice in 0 until jsonAns.length()) {
                     answers[choice] = jsonAns[choice].toString()
                 }
-                quizzes.add(Quiz(text, answer, answers))
+                quizzes.add(Quiz(question.getString("text"), question.getInt("answer"), answers))
             }
-            allTopics.add(Topic_One_Desc(title, desc, quizzes))
+            allTopics.add(Topic_One_Desc(topic.getString("title"), topic.getString("desc"), quizzes))
          }
         topics = allTopics
         Log.i("QuizApp", "QuizApp onCreate running")

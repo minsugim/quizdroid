@@ -34,7 +34,7 @@ class fragmentAnswer : Fragment() {
         val actualAnswer = getString(R.string.correct_answer) + quiz.answers[correctAnswer]
         val yourScore = getString(R.string.score_1) + score + " out of " + QuizApp().getTopics()[topicNumber].questions.size + " correct"
 
-        rootView.findViewById<TextView>(R.id.given_answer).text = answer
+        rootView.findViewById<TextView>(R.id.given_answer).text = getString(R.string.your_answer) + answer
         rootView.findViewById<TextView>(R.id.correct_answer).text =  actualAnswer
         currScore.text =  yourScore
 
